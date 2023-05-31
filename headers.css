@@ -51,6 +51,11 @@ body {
   align-items: center;
   flex-direction: column;
 }
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 
 .form-signin {
   max-width: 330px;
@@ -71,4 +76,56 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.container {
+  max-width: 1100px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  margin-right: 10px;
+}
+
+.navbar-toggler {
+  border: none;
+  background-color: var(--cor6);
+}
+
+.navbar-toggler-icon {
+  background-color: var(--cor7);
+}
+
+.navbar-nav .nav-link {
+  color: var(--cor7);
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--cor5);
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background-color: var(--cor6);
+  }
+
+  .navbar-nav .nav-link {
+    color: var(--cor7);
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    width: 100%;
+  }
+
+  .form-signin {
+    max-width: 100%;
+  }
 }
