@@ -30,10 +30,14 @@
   background-image: url("imagem/bg3.jpg");
   background-size: cover; /*https://www.freepik.com/free-photo/rear-view-woman-stretching-body-after-awakening-bed_3699872.htm#page=2&query=good%20dream&position=9&from_view=search&track=ais*/
 }
+.bgcor12   {background-color: var(--cor7);}
 
 
 .txtcor1   {color: var(--cor7);}
-.txtcor2 {color:  var(--10);}
+.txtcor2 {color:  var(--cor10);}
+.txtcor3 {color:  var(--cor6);}
+
+.bordaamarela {border-color: var(--cor7);}
 
 body {
   height:100%; 
@@ -51,11 +55,6 @@ body {
   align-items: center;
   flex-direction: column;
 }
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 
 .form-signin {
   max-width: 330px;
@@ -77,55 +76,6 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.btn-primeiro{background-color:var(--cor6); color:var(--cor7);border-color:var(--cor7)}
+.btn-segundo{background-color:var(--cor7); color:var(--cor6);border-color:var(--cor7)}
 
-.container {
-  max-width: 1100px;
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-brand img {
-  margin-right: 10px;
-}
-
-.navbar-toggler {
-  border: none;
-  background-color: var(--cor6);
-}
-
-.navbar-toggler-icon {
-  background-color: var(--cor7);
-}
-
-.navbar-nav .nav-link {
-  color: var(--cor7);
-  font-weight: bold;
-}
-
-.navbar-nav .nav-link:hover {
-  color: var(--cor5);
-}
-
-@media (max-width: 991px) {
-  .navbar-collapse {
-    background-color: var(--cor6);
-  }
-
-  .navbar-nav .nav-link {
-    color: var(--cor7);
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  header {
-    width: 100%;
-  }
-
-  .form-signin {
-    max-width: 100%;
-  }
-}
