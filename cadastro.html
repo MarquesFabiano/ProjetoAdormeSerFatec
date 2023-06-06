@@ -20,7 +20,7 @@
     <div class="col-md-7 col-lg-8 txtcor1">
       <h4 class="mb-3 text-center">Informe seus dados para cadastro</h4>
       <br>
-      <form class="needs-validation" action="cadastro2.php" method="POST" novalidate>
+      <form class="needs-validation" action="cadastro.php" method="POST" novalidate>
         <div class="row g-3">
           <div class="col-sm-12">
             <label for="Nome" class="form-label">Nome Completo</label>
@@ -55,7 +55,7 @@
           </div>
           <div class="col-sm-4">
             <label for="Idade" class="form-label">Idade</label>
-            <input type="date" class="form-control" id="Idade" placeholder="Informe sua idade" value="" required>
+            <input type="date" class="form-control" id="Idade" name="idade" placeholder="Informe sua idade" value="" required>
             <div class="invalid-feedback">
               Por favor digite sua idade.
             </div>
@@ -64,7 +64,7 @@
 
           <div class="col-sm-4">
             <label for="Dormir" class="form-label">Horário de Dormir</label>
-            <input type="time" class="form-control" id="Dormir" placeholder="Horário de Dormir" value="" required>
+            <input type="time" class="form-control" id="Dormir" name="horario_dormir" placeholder="Horário de Dormir" value="" required>
             <div class="invalid-feedback">
               Por favor digite seu horário de dormir.
             </div>
@@ -73,7 +73,7 @@
 
           <div class="col-sm-4">
             <label for="Acordar" class="form-label">Horário de Acordar</label>
-            <input type="time" class="form-control" id="Acordar" placeholder="Horário de Acordar" value="" required>
+            <input type="time" class="form-control" id="Acordar" name="horario_acordar" placeholder="Horário de Acordar" value="" required>
             <div class="invalid-feedback">
               Por favor digite seu horário de acordar.
             </div>
@@ -81,7 +81,7 @@
 
           <div class="col-sm-6">
             <label for="Pais" class="form-label">País</label>
-            <select class="form-select" id="Pais" required>
+            <select class="form-select" id="Pais" name="pais" required>
               <option value="">Escolha</option>
               <option>Brasil</option>
             </select>
@@ -92,7 +92,7 @@
 
           <div class="col-sm-6">
             <label for="Estado" class="form-label">Estado</label>
-            <select class="form-select" id="Estado" required>
+            <select class="form-select" id="Estado" name="estado" required>
               <option value="">Escolha</option>
               <option>Acre</option>
               <option>Alagoas</option>
