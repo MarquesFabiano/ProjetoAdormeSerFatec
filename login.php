@@ -19,8 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $_SESSION['user_id'] = $usuario['id']; // Armazena o ID do usuário na sessão
 
-            echo "<script>alert('Login bem-sucedido!');</script>";
-            echo "<script>window.location.href = 'aplicacao.html';</script>";
+            echo "<script>window.location.href = 'main.php';</script>";
         } else {
             echo "<script>alert('Senha incorreta. Tente novamente.');</script>";
         }

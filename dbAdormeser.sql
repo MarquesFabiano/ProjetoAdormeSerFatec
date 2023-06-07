@@ -29,16 +29,21 @@ DELIMITER ;
 ALTER TABLE usuarios
 ADD duracao_sono TIME;
 
+
 DELIMITER //
 
-CREATE FUNCTION calcular_duracao_sono(horario_dormir TIME, horario_acordar TIME)
-RETURNS TIME
+CREATE OR REPLACE FUNCTION calcular_duracao_sono(horario_dormir TIME, horario_acordar TIME)
+RETURNS VARCHAR(8)
 BEGIN
   DECLARE duracao TIME;
-  
-  SET duracao = TIMEDIFF(horario_acordar, horario_dormir);
-  
-  RETURN duracao;
+
+  IF horario_acordar >= horario_dormir THEN
+    SET duracao = TIMEDIFF(horario_acordar, horario_dormir);
+  ELSE
+    SET duracao = ADDTIME(TIMEDIFF('24:00:00', horario_dormir), horario_acordar);
+  END IF;
+
+  RETURN TIME_FORMAT(duracao, '%H:%i:%s');
 END//
 
 DELIMITER ;
@@ -54,5 +59,4 @@ BEGIN
 END//
 
 DELIMITER ;
-
 
