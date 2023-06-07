@@ -13,14 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows === 1) {
         $usuario = $result->fetch_assoc();
-        if (password_verify($senha, $usuario['senha'])) {
+        $senhaArmazenada = $usuario['senha'];
 
-            echo 'Login bem-sucedido!';
+        if (hash('sha256', $senha) === $senhaArmazenada) {
+            session_start();
+            $_SESSION['user_id'] = $usuario['id']; // Armazena o ID do usuário na sessão
+
+            echo "<script>alert('Login bem-sucedido!');</script>";
+            echo "<script>window.location.href = 'aplicacao.html';</script>";
         } else {
-            echo 'Senha incorreta. Tente novamente.';
+            echo "<script>alert('Senha incorreta. Tente novamente.');</script>";
         }
     } else {
-        echo 'Usuário não encontrado. Verifique seu email.';
+        echo "<script>alert('Usuário não encontrado. Verifique seu email.');</script>";
     }
 
     $databaseObj->close();

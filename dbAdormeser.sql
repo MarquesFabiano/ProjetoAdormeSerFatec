@@ -25,3 +25,34 @@ BEGIN
 END//
 
 DELIMITER ;
+
+ALTER TABLE usuarios
+ADD duracao_sono TIME;
+
+DELIMITER //
+
+CREATE FUNCTION calcular_duracao_sono(horario_dormir TIME, horario_acordar TIME)
+RETURNS TIME
+BEGIN
+  DECLARE duracao TIME;
+  
+  SET duracao = TIMEDIFF(horario_acordar, horario_dormir);
+  
+  RETURN duracao;
+END//
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER calcular_duracao_sono_trigger
+BEFORE INSERT ON usuarios
+FOR EACH ROW
+BEGIN
+  SET NEW.duracao_sono = calcular_duracao_sono(NEW.horario_dormir, NEW.horario_acordar);
+END//
+
+DELIMITER ;
+
+
