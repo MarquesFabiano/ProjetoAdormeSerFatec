@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bgcor6 fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="imagem/logo1.jpg" width="100" height="76" alt="Logo">
+          <img src="imagem/logo1.png" width="100" height="76" alt="Logo">
           <span class="fs-4 txtcor1">Adorme.ser</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -50,7 +50,7 @@
 
   <main class="form-signin w-100 m-auto bgcor6">
     <form action="login.php" method="POST">
-      <h3 class="mb-3 fw-normal txtcor1">Faça seu login <img src="imagem/logo1.jpg" width="42" height="27" alt="Logo" />
+      <h3 class="mb-3 fw-normal txtcor1">Faça seu login <img src="imagem/logo1.png" width="42" height="27" alt="Logo" />
       </h3>
       <div class="form-floating">
         <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
