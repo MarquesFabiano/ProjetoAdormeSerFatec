@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (hash('sha256', $senha) === $senhaArmazenada) {
             session_start();
-            $_SESSION['user_id'] = $usuario['id']; // Armazena o ID do usuário na sessão
+            $_SESSION['user_id'] = $usuario['id']; // para guardar o ID do usuário na sessão
 
-            echo "<script>window.location.href = 'main.php';</script>";
+            echo "<script>window.location.href = 'aplicacao.php';</script>";
         } else {
             echo "<script>alert('Senha incorreta. Tente novamente.');</script>";
         }

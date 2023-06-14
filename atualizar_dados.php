@@ -1,3 +1,72 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    echo "Você não está logado. <a href='index.php'>Faça o login</a>";
+    exit;
+}
+
+$userID = $_SESSION['user_id'];
+
+require_once 'conexao.php';
+$databaseObj = new Database($host, $username, $password, $database);
+$databaseObj->connect();
+
+
+$query = "SELECT * FROM usuarios WHERE id = $userID";
+$result = $databaseObj->executeQuery($query);
+
+if ($result->num_rows === 1) {
+    $usuario = $result->fetch_assoc();
+  
+    $id = $usuario['id'];
+    $nome = $usuario['nome'];
+    $email = $usuario['email'];
+    $horario_dormir = $usuario['horario_dormir'];
+    $horario_acordar = $usuario['horario_acordar'];
+    $estado = $usuario['estado'];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $novo_horario_dormir = $_POST['horario_dormir'];
+        $novo_horario_acordar = $_POST['horario_acordar'];
+        $novo_nome = $_POST['nome_completo'];
+        $novo_estado = $_POST['estado'];
+
+        $updates = []; //array apenas com dados atualizados
+
+        if (!empty($novo_horario_dormir)) {
+            $updates[] = "horario_dormir = '$novo_horario_dormir'";
+        }
+
+        if (!empty($novo_horario_acordar)) {
+            $updates[] = "horario_acordar = '$novo_horario_acordar'";
+        }
+
+        if (!empty($novo_nome)) {
+            $updates[] = "nome = '$novo_nome'";
+        }
+
+        if (!empty($novo_estado)) {
+            $updates[] = "estado = '$novo_estado'";
+        }
+
+        if (!empty($updates)) {
+            $updateQuery = "UPDATE usuarios SET " . implode(", ", $updates) . " WHERE id = $userID";
+            $updateResult = $databaseObj->executeQuery($updateQuery);
+
+            if ($updateResult) {
+              echo "<script>alert('Alterações salvas com sucesso!'); ; window.location.href = 'aplicacao.php';</script>";
+            } else {
+                echo "<script>alert('Erro ao salvar as alterações. Por favor, tente novamente mais tarde.');</script>";
+            }
+        }
+    }
+}
+
+$databaseObj->close();
+?>
+
 <!doctype html>
 <html lang="pt-br" data-bs-theme="auto">
 <head>
@@ -13,58 +82,26 @@
   <main class="d-flex flex-wrap justify-content-center">
     <div class="py-5 text-center txtcor1">
       <img class="d-block mx-auto mb-4 rounded-circle" src="imagem/logo1.png" alt="" width="92" height="77">
-      <h2>Seja Bem vindo ao nosso campo de cadastro</h2>
-      <p class="lead bgcor6">Para fazer parte desta experiência, preencha os dados abaixo.</p>
+      <h2>Vamos atualizar seus dados!</h2>
+      <p class="lead bgcor6">insira abaixo os novos dados.</p>
     </div>
 
     <div class="col-md-7 col-lg-8 txtcor1">
-      <h4 class="mb-3 text-center">Informe seus dados para cadastro</h4>
+
       <br>
-      <form class="needs-validation" action="cadastro.php" method="POST" novalidate>
+      <form class="needs-validation" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <div class="row g-3">
           <div class="col-sm-12">
             <label for="Nome" class="form-label">Nome Completo</label>
-            <input type="text" class="form-control" id="Nome" name="nome_completo" placeholder="Nome Completo" value="" required>
+            <input type="text" class="form-control" id="Nome" name="nome_completo" placeholder="Nome Completo" value="<?php echo $nome; ?>" required>
             <div class="invalid-feedback">
               Por favor digite seu nome completo.
             </div>
-          </div>
-
-          <div class="col-sm-6">
-            <label for="Senha" class="form-label">Digite sua senha</label>
-            <input type="password" class="form-control" id="Senha" name="senha" placeholder="Senha" value="" required>
-            <div class="invalid-feedback">
-              Por favor digite uma senha.
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <label for="ConfirmaSenha" class="form-label">Confirme sua senha</label>
-            <input type="password" class="form-control" id="ConfirmaSenha" name="confirma_senha" placeholder="Repita Senha" value="" required>
-            <div class="invalid-feedback">
-              Por favor repita sua senha.
-            </div>
-          </div>
-
-          <div class="col-12">
-            <label for="Email" class="form-label">Digite seu email</label>
-            <input type="email" class="form-control" id="Email" name="email" placeholder="adorme.ser@gmail.com">
-            <div class="invalid-feedback">
-              Por favor digite um email.
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <label for="Idade" class="form-label">Idade</label>
-            <input type="date" class="form-control" id="Idade" name="idade" placeholder="Informe sua idade" value="" required>
-            <div class="invalid-feedback">
-              Por favor digite sua idade.
-            </div>
-          </div>
 
 
           <div class="col-sm-4">
             <label for="Dormir" class="form-label">Horário de Dormir</label>
-            <input type="time" class="form-control" id="Dormir" name="horario_dormir" placeholder="Horário de Dormir" value="" required>
+            <input type="time" class="form-control" id="Dormir" name="horario_dormir" placeholder="Horário de Dormir" value="<?php echo $horario_dormir; ?>" required>
             <div class="invalid-feedback">
               Por favor digite seu horário de dormir.
             </div>
@@ -73,25 +110,14 @@
 
           <div class="col-sm-4">
             <label for="Acordar" class="form-label">Horário de Acordar</label>
-            <input type="time" class="form-control" id="Acordar" name="horario_acordar" placeholder="Horário de Acordar" value="" required>
+            <input type="time" class="form-control" id="Acordar" name="horario_acordar" placeholder="Horário de Acordar" value="<?php echo $horario_acordar; ?>" required>
             <div class="invalid-feedback">
               Por favor digite seu horário de acordar.
             </div>
-          </div>
+          </div>>
 
           <div class="col-sm-6">
-            <label for="Pais" class="form-label">País</label>
-            <select class="form-select" id="Pais" name="pais" required>
-              <option value="">Escolha</option>
-              <option>Brasil</option>
-            </select>
-            <div class="invalid-feedback">
-              Por favor selecione um país.
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <label for="Estado" class="form-label">Estado</label>
+            <label for="Estado" class="form-label" value="<?php echo $estado; ?>" >Estado</label>
             <select class="form-select" id="Estado" name="estado" required>
               <option value="">Escolha</option>
               <option>Acre</option>
@@ -129,7 +155,7 @@
 
         <br>
 
-        <button class="btn-primeiro w-100" type="submit">Avançar</button>
+        <button class="btn-primeiro w-100" type="submit">Salvar Alterações</button>
       </form>
     </div>
   </div>
@@ -138,7 +164,7 @@
 <footer class="my-5 pt-5 text-body-secondary text-center text-small">
   <p class="mb-1 txtcor1">&copy; 2017–2023 Company Name</p>
   <ul class="list-inline">
-    <li class="list-inline-item "><a class="txtcor1" href="index.php">Pagina Inicial</a></li>
+    <li class="list-inline-item "><a class="txtcor1" href="index.html">Home</a></li>
     <li class="list-inline-item"><a class="txtcor1" href="#">Terms</a></li>
     <li class="list-inline-item"><a class="txtcor1" href="#">Support</a></li>
   </ul>

@@ -56,7 +56,7 @@ if ($result->num_rows === 1) {
             $updateResult = $databaseObj->executeQuery($updateQuery);
 
             if ($updateResult) {
-                echo "<script>alert('Alterações salvas com sucesso!');</script>";
+                echo "<script>alert('Alterações salvas com sucesso!'); ; window.location.href = 'aplicacao.php';</script>";
             } else {
                 echo "<script>alert('Erro ao salvar as alterações. Por favor, tente novamente mais tarde.');</script>";
             }
@@ -111,7 +111,7 @@ $databaseObj->close();
 <body>
     <h1>Editar Perfil</h1>
 
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    
         <div class="form-group">
             <label for="nome_completo">Nome Completo:</label>
             <input type="text" id="nome_completo" name="nome_completo" value="<?php echo $nome; ?>">

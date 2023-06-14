@@ -16,7 +16,7 @@ $result = $databaseObj->executeQuery($query);
 
 if ($result) {
     echo "<script>alert('Cadastro realizado com sucesso!');</script>";
-    echo "<script>window.location.href = 'index.html';</script>";
+    echo "<script>window.location.href = 'index.php';</script>";
 } else {
     echo "<script>alert('Erro ao cadastrar. Por favor, tente novamente mais tarde.');</script>";
 }
