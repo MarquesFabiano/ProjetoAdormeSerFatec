@@ -188,26 +188,63 @@ $databaseObj->close();
   </div>
 </main>
 <script>
-        var duracaoSono = "<?php echo $duracaoSono; ?>";
-        var idade = <?php echo $idade; ?>;
 
-        var mensagem = "Você tem " + idade + " anos e está dormindo por " + duracaoSono + " horas.";
+var duracaoSono = "<?php echo $duracaoSono; ?>";
+var idade = <?php echo $idade; ?>;
 
-        if (idade <= 3 && duracaoSono >= 12) {
-            mensagem += " Isso é uma quantidade adequada de sono para a sua idade.";
-        } else if (idade >= 4 && idade <= 13 && duracaoSono >= 10 && duracaoSono <= 12) {
-            mensagem += " Isso é uma quantidade adequada de sono para a sua idade.";
-        } else if (idade >= 14 && idade <= 17 && duracaoSono >= 8 && duracaoSono <= 10) {
-            mensagem += " Isso é uma quantidade adequada de sono para a sua idade.";
-        } else if (idade >= 18 && duracaoSono >= 7 && duracaoSono <= 9) {
-            mensagem += " Isso é uma quantidade adequada de sono para a sua idade.";
-        } else {
-            mensagem += " A quantidade de sono pode não ser adequada para a sua idade. Considere ajustar seus horários de sono.";
-        }
+var mensagem = "Você tem " + idade + " anos e está dormindo por " + duracaoSono + " horas.";
 
-        var paragrafo = document.querySelector(".col-md-8.fs-4");
-        paragrafo.textContent = mensagem;
+if (idade >= 14 && idade <= 17) {
+    if (duracaoSono < 7) {
+        mensagem += " Você está dormindo menos de 7 horas, o que pode não ser adequado para sua idade.";
+    } else if (duracaoSono > 10) {
+        mensagem += " Você está dormindo mais de 10 horas, o que pode ser mais do que o necessário para sua idade.";
+    } else {
+        mensagem += " Você está dormindo entre 7 e 10 horas, o que é uma quantidade adequada de sono para sua idade.";
+    }
+} else if (idade >= 18 && idade <= 39) {
+    if (duracaoSono < 7) {
+        mensagem += " Você está dormindo menos de 7 horas, o que pode não ser adequado para sua idade.";
+    } else if (duracaoSono > 9) {
+        mensagem += " Você está dormindo mais de 9 horas, o que pode ser mais do que o necessário para sua idade.";
+    } else {
+        mensagem += " Você está dormindo entre 7 e 9 horas, o que é uma quantidade adequada de sono para sua idade.";
+    }
+} else if (idade >= 40 && idade <= 64) {
+    if (duracaoSono < 7) {
+        mensagem += " Você está dormindo menos de 7 horas, o que pode não ser adequado para sua idade.";
+    } else if (duracaoSono > 8) {
+        mensagem += " Você está dormindo mais de 8 horas, o que pode ser mais do que o necessário para sua idade.";
+    } else {
+        mensagem += " Você está dormindo entre 7 e 8 horas, o que é uma quantidade adequada de sono para sua idade.";
+    }
+} else {
+    mensagem += " A quantidade de sono pode não ser adequada para a sua faixa etária. Considere ajustar seus horários de sono.";
+}
 
+var paragrafo = document.querySelector(".col-md-8.fs-4");
+paragrafo.textContent = mensagem;
+
+
+  function checkBedtime() {     // função para notificar horario de dormir:
+
+    var dataHoje = new Date();
+    var horaAtual = dataHoje.getHours();
+
+    if (horaAtual === 22) {
+      if ('Notification' in window) {
+        Notification.requestPermission().then(function (permission) {
+          if (permission === 'granted') {
+            var notification = new Notification('Hora de dormir!', {
+              body: 'Já são 22h, está na hora de ir para a cama.',
+            });
+          }
+        });
+      }
+    }
+  }
+
+  setInterval(checkBedtime, 60000);
 
     </script>
   </body>
