@@ -60,3 +60,22 @@ END//
 
 DELIMITER ;
 
+DELIMITER //
+
+CREATE OR REPLACE FUNCTION calcular_media_duracao_sono()
+RETURNS VARCHAR(10)
+BEGIN
+  DECLARE media TIME;
+  DECLARE media_horas INT;
+  DECLARE media_minutos INT;
+
+  SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(duracao_sono))) INTO media
+  FROM usuarios;
+
+  SET media_horas = HOUR(media);
+  SET media_minutos = MINUTE(media);
+
+  RETURN CONCAT(media_horas, 'h ', media_minutos, 'm');
+END//
+
+DELIMITER ;
