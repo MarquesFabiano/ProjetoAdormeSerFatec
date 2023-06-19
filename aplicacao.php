@@ -12,7 +12,7 @@ require_once 'conexao.php';
 $databaseObj = new Database($host, $username, $password, $database);
 $databaseObj->connect();
 
-// puxar do db adormeser os dados
+// Buscar dados do usuário no banco de dados
 $query = "SELECT * FROM usuarios WHERE id = $userID";
 $result = $databaseObj->executeQuery($query);
 
@@ -24,16 +24,24 @@ if ($result->num_rows === 1) {
   $email = $usuario['email'];
   $duracaoSono = $usuario['duracao_sono'];
 
-  //calculando a idade
+  // Calculando a idade
   $dataNascimento = new DateTime($usuario['idade']);
   $dataAtual = new DateTime();
   $intervalo = $dataAtual->diff($dataNascimento);
   $idade = $intervalo->y;
 
+  $mediaSono = null;
+  $query = "SELECT calcular_media_duracao_sono() AS resultado";
+  $result = $databaseObj->executeQuery($query);
 
+  if ($result->num_rows === 1) {
+    $row = $result->fetch_assoc();
+    $mediaSono = $row['resultado'];
+  }
 }
-$databaseObj->close();
+
 ?>
+
 
 <!doctype html>
 <html lang="pt-br" data-bs-theme="auto">
@@ -117,7 +125,7 @@ $databaseObj->close();
       <div class="p-5 mb-4 bg-body-tertiary rounded-3">
         <div class="container-fluid py-5">
           <h1 class="display-5 fw-bold">Seus dados de sono!</h1>
-          <div class="user-info">
+          <div class="col-md-8.fs-4">
             <strong>ID:</strong>
             <?php echo $id; ?><br>
             <strong>Nome:</strong>
@@ -128,9 +136,13 @@ $databaseObj->close();
             <?php echo $idade; ?><br>
             <strong>Duração do sono:</strong>
             <?php echo $duracaoSono; ?><br>
+            <strong>A média de duração do sono dos nossos usuarios é::</strong>
+            <?php echo $mediaSono; ?><br>
+            <p class="col-md-8.fs-4"></p>
           </div>
           <p class="col-md-8 fs-4"></p>
-          <button class="btn btn-primary btn-lg" type="button" onclick="receberNotificacoes()">Receba notificações!</button>
+          <button class="btn btn-primary btn-lg" type="button" onclick="receberNotificacoes()">Receba
+            notificações!</button>
         </div>
       </div>
 
@@ -221,7 +233,8 @@ $databaseObj->close();
 
         <ul class="list-inline">
           <button class="btn btn-outline-light border"><a href="logout.php">Logout</a></button>
-          <button class="btn btn-outline-light border" type="button" onclick="window.location.href='atualizar_dados.php'">Atualize seus dados!</button>
+          <button class="btn btn-outline-light border" type="button"
+            onclick="window.location.href='atualizar_dados.php'">Atualize seus dados!</button>
 
         </ul>
       </footer>
@@ -244,68 +257,69 @@ $databaseObj->close();
       }
     } else if (idade >= 18 && idade <= 39) {
       if (duracaoSono < 7) {
-        mensagem += " Você está dormindo menos de 7 horas, o que pode não ser adequado para sua idade.";
+        mensagem += "Cuidado! Você está entre os 72% da população brasileira que sofre com distúrbios do sono. A qualidade do sono está diretamente ligada à qualidade de vida do ser humano. Enquanto dormimos, nosso organismo realiza funções extremamente importantes: fortalecimento do sistema imunológico, secreção e liberação de hormônios, consolidação da memória, entre outras. Porém, a falta de tempo de descanso aliada aos inúmeros distúrbios noturnos que atingem boa parte da população, o desempenho dessas funções fica prejudicado.Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para iniciar uma jornada rumo à saúde através do sono.";
       } else if (duracaoSono > 9) {
-        mensagem += " Você está dormindo mais de 9 horas, o que pode ser mais do que o necessário para sua idade.";
+        mensagem += " Cuidado! Você está entre os 72% da população brasileira que sofre de distúrbios do sono. Sabe aquela frase clichê que diz que tudo em excesso faz mal? Aposto que você já ouviu isso da sua avó, da sua tia ou da sua mãe. E elas estavam todas certas. Tudo em excesso realmente faz mal, até o sono. É importante investigar as causas secundárias do seu sono excessivo, para isso é muito importante procurar um médico. Lembre-se, se o sono excessivo acontece em momentos pontuais, é perfeitamente normal. Na sessão documentos você encontrará um artigo científico que explica melhor as possíveis causas do sono excessivo. Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para iniciar uma jornada rumo à saúde através do sono. ";
       } else {
-        mensagem += " Você está dormindo entre 7 e 9 horas, o que é uma quantidade adequada de sono para sua idade.";
+        mensagem += "Você está entre os 28% da população que não sofre com algum distúrbio relacionado ao sono! A qualidade do sono está diretamente ligada à qualidade de vida do ser humano. Enquanto dormimos, nosso organismo realiza funções extremamente importantes: fortalecimento do sistema imunológico, secreção e liberação de hormônios, consolidação da memória, entre outras.  Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para que você possa melhorar ainda mais a qualidade do seu sono!";
       }
     } else if (idade >= 40 && idade <= 64) {
       if (duracaoSono < 7) {
-        mensagem += " Você está dormindo menos de 7 horas, o que pode não ser adequado para sua idade.";
+        mensagem += " Cuidado! Você está entre os 72% da população brasileira que sofre com distúrbios do sono. A qualidade do sono está diretamente ligada à qualidade de vida do ser humano. Enquanto dormimos, nosso organismo realiza funções extremamente importantes: fortalecimento do sistema imunológico, secreção e liberação de hormônios, consolidação da memória, entre outras. Porém, a falta de tempo de descanso aliada aos inúmeros distúrbios noturnos que atingem boa parte da população, o desempenho dessas funções fica prejudicado. Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para iniciar uma jornada rumo à saúde através do sono. ";
       } else if (duracaoSono > 8) {
-        mensagem += " Você está dormindo mais de 8 horas, o que pode ser mais do que o necessário para sua idade.";
+        mensagem += " Cuidado! Você está entre os 72% da população brasileira que sofre de distúrbios do sono. Sabe aquela frase clichê que diz que tudo em excesso faz mal? Aposto que você já ouviu isso da sua avó, da sua tia ou da sua mãe. E elas estavam todas certas. Tudo em excesso realmente faz mal, até o sono. É importante investigar as causas secundárias do seu sono excessivo, para isso é muito importante procurar um médico. Lembre-se, se o sono excessivo acontece em momentos pontuais, é perfeitamente normal. Na sessão documentos você encontrará um artigo científico que explica melhor as possíveis causas do sono excessivo.  Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para iniciar uma jornada rumo à saúde através do sono. ";
       } else {
-        mensagem += " Você está dormindo entre 7 e 8 horas, o que é uma quantidade adequada de sono para sua idade.";
+        mensagem += "Você está entre os 28% da população que não sofre com algum distúrbio relacionado ao sono! A qualidade do sono está diretamente ligada à qualidade de vida do ser humano. Enquanto dormimos, nosso organismo realiza funções extremamente importantes: fortalecimento do sistema imunológico, secreção e liberação de hormônios, consolidação da memória, entre outras.  Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para que você possa melhorar ainda mais a qualidade do seu sono! ";
       }
-    } else {
-      mensagem += " A quantidade de sono pode não ser adequada para a sua faixa etária. Considere ajustar seus horários de sono.";
-    }
+
+    }  else {
+        mensagem += "O processamento de idade ainda está em desenvolvimento em nosso Site!"
+      }
 
     var paragrafo = document.querySelector(".col-md-8.fs-4");
     paragrafo.textContent = mensagem;
 
 
     function checkBedtime() {
-  var dataHoje = new Date();
-  var horaAtual = dataHoje.getHours();
-  var minutosAtuais = dataHoje.getMinutes();
+      var dataHoje = new Date();
+      var horaAtual = dataHoje.getHours();
+      var minutosAtuais = dataHoje.getMinutes();
 
-  if (horaAtual === 10 && minutosAtuais === 22) {
-    if ('Notification' in window) {
-      Notification.requestPermission().then(function (permission) {
-        if (permission === 'granted') {
-          var notification = new Notification('Hora de dormir!', {
-            body: 'Chega de celular por hoje, hein!! Antes de dormir fique longe das telas pelo menos meia hora antes de dormir, substitua o seu celular por um livro, algo que te de sono mais rapidamente',
+      if (horaAtual === 10 && minutosAtuais === 22) {
+        if ('Notification' in window) {
+          Notification.requestPermission().then(function (permission) {
+            if (permission === 'granted') {
+              var notification = new Notification('Hora de dormir!', {
+                body: 'Chega de celular por hoje, hein!! Antes de dormir fique longe das telas pelo menos meia hora antes de dormir, substitua o seu celular por um livro, algo que te de sono mais rapidamente',
+              });
+            }
           });
         }
-      });
-    }
-  }
-}
-
-// Solicitar permissão de notificação assim que entrar na sala
-if ('Notification' in window) {
-  Notification.requestPermission();
-}
-
-checkBedtime(); // Verificar hora quando entrar na sala
-
-setInterval(checkBedtime, 60000); // Verificar a cada minuto
-
-function receberNotificacoes() {
-  if ('Notification' in window) {
-    Notification.requestPermission().then(function(permission) {
-      if (permission === 'granted') {
-        alert('Permissão concedida para receber notificações!');
-      } else if (permission === 'denied') {
-        alert('Permissão negada para receber notificações. Você pode alterar isso nas configurações do seu navegador.');
       }
-    });
-  } else {
-    alert('Seu navegador não suporta notificações.');
-  }
-}
+    }
+
+    // teste para permissão de notificação assim que entrar na sala
+    if ('Notification' in window) {
+      Notification.requestPermission();
+    }
+
+    checkBedtime(); // Verificar hora quando abre o site
+
+    setInterval(checkBedtime, 60000); // a cada minuto, ve a hora
+
+    function receberNotificacoes() {
+      if ('Notification' in window) {
+        Notification.requestPermission().then(function (permission) {
+          if (permission === 'granted') {
+            alert('Permissão concedida para receber notificações!');
+          } else if (permission === 'denied') {
+            alert('Permissão negada para receber notificações. Você pode alterar isso nas configurações do seu navegador.');
+          }
+        });
+      } else {
+        alert('Seu navegador não suporta notificações.');
+      }
+    }
 
 
   </script>
