@@ -21,7 +21,7 @@ class Database
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
 
         if ($this->conn->connect_error) {
-            die("Erro na conexão com o banco de dados: " . $this->conn->connect_error);
+            die("Eita, tivemos um erro na conexão :(" . $this->conn->connect_error);
         }
     }
 
@@ -35,7 +35,7 @@ class Database
         $result = $this->conn->query($query);
 
         if (!$result) {
-            die("Erro na execução da consulta: " . $this->conn->error);
+            die("Opa! Não achamos essa conta " . $this->conn->error);
         }
 
         return $result;

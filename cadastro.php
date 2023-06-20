@@ -15,10 +15,10 @@ $query = "INSERT INTO usuarios (nome, senha, email, idade, horario_dormir, horar
 $result = $databaseObj->executeQuery($query);
 
 if ($result) {
-    echo "<script>alert('Cadastro realizado com sucesso!');</script>";
+    echo "<script>alert('Cadastro realizado com sucesso! Voltando para pagina de login!');</script>";
     echo "<script>window.location.href = 'index.php';</script>";
 } else {
-    echo "<script>alert('Erro ao cadastrar. Por favor, tente novamente mais tarde.');</script>";
+    echo "<script>alert('Erro ao cadastrar. Vamos tentar novamente.');</script>";
 }
 
 $databaseObj->close();

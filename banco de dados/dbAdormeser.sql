@@ -27,7 +27,7 @@ END//
 DELIMITER ;
 
 ALTER TABLE usuarios
-ADD duracao_sono TIME;
+ADD ;
 
 
 DELIMITER //

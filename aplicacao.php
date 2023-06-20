@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-  echo "Você não está logado. <a href='index.php'>Faça o login</a>";
+  echo "Opaaa, você não está logado. <a href='index.php'>Faça o login clicando aqui!</a>";
   exit;
 }
 
@@ -30,6 +30,7 @@ if ($result->num_rows === 1) {
   $intervalo = $dataAtual->diff($dataNascimento);
   $idade = $intervalo->y;
 
+  // chama função  para calcular a media de sono de geral
   $mediaSono = null;
   $query = "SELECT calcular_media_duracao_sono() AS resultado";
   $result = $databaseObj->executeQuery($query);
