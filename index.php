@@ -34,13 +34,13 @@
               <a class="nav-link" href="cadastro.html">Cadastrar</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
+              <a class="nav-link" href="https://www.gov.br/saude/pt-br/">Ministério da Saúde</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">FAQs</a>
+              <a class="nav-link" href="https://fatecararas.cps.sp.gov.br/">Fatec</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="https://github.com/MarquesFabiano">GitHub</a>
             </li>
           </ul>
         </div>
@@ -62,7 +62,7 @@
       </div>
       <div class="checkbox mb-3 txtcor1">
         <label>
-          <input type="checkbox" value="remember-me"> Remember me
+          <input type="checkbox" value="remember-me"> Lembre-me
         </label>
       </div>
       <button class="w-100 btn btn-lg btn-primary btn-primeiro my-2" type="submit">Logar</button>
