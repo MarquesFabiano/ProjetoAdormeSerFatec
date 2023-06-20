@@ -136,7 +136,7 @@ if ($result->num_rows === 1) {
             <?php echo $idade; ?><br>
             <strong>Duração do sono:</strong>
             <?php echo $duracaoSono; ?><br>
-            <strong>A média de duração do sono dos nossos usuarios é::</strong>
+            <strong>A média de duração do sono dos nossos usuarios é:</strong>
             <?php echo $mediaSono; ?><br>
             <p class="col-md-8.fs-4"></p>
           </div>
@@ -269,7 +269,7 @@ if ($result->num_rows === 1) {
       } else if (duracaoSono > 8) {
         mensagem += " Cuidado! Você está entre os 72% da população brasileira que sofre de distúrbios do sono. Sabe aquela frase clichê que diz que tudo em excesso faz mal? Aposto que você já ouviu isso da sua avó, da sua tia ou da sua mãe. E elas estavam todas certas. Tudo em excesso realmente faz mal, até o sono. É importante investigar as causas secundárias do seu sono excessivo, para isso é muito importante procurar um médico. Lembre-se, se o sono excessivo acontece em momentos pontuais, é perfeitamente normal. Na sessão documentos você encontrará um artigo científico que explica melhor as possíveis causas do sono excessivo.  Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para iniciar uma jornada rumo à saúde através do sono. ";
       } else {
-        mensagem += "Você está entre os 28% da população que não sofre com algum distúrbio relacionado ao sono! A qualidade do sono está diretamente ligada à qualidade de vida do ser humano. Enquanto dormimos, nosso organismo realiza funções extremamente importantes: fortalecimento do sistema imunológico, secreção e liberação de hormônios, consolidação da memória, entre outras.  Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para que você possa melhorar ainda mais a qualidade do seu sono! ";
+        mensagem += "Você está entre os 28% da população que não sofre com algum distúrbio relacionado ao sono! A qualidade do sono está diretamente ligada à qualidade de vida do ser humano. Enquanto dormimos, nosso organismo realiza funções extremamente importantes: fortalecimento do sistema imunológico, secreção e liberação de hormônios, consolidação da memória, entre outras.  Durante o dia, até a hora de você dormir, nós vamos ajudá-lo com algumas dicas e lembretes importantes para que você possa melhorar ainda mais a qualidade do seu sono!  ";
       }
 
     }  else {
